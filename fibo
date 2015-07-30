@@ -1,0 +1,58 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+
+#define N 100
+
+using namespace std;
+
+
+struct Vector 
+{
+    int vec[N];
+
+};
+
+
+void cargavecFib(Vector V1[N],int n);
+void mostrar(Vector vec[N], int n);
+
+void main()
+{   
+
+	int n;
+    Vector V[N];
+    do
+	{
+	cout<<"INGRESAR NUMERO PARA EL TAM DEL VECTOR: ";
+    cin>> n;
+    } 
+	while (n<=0);
+    cargavecFib(V,n);
+	mostrar(V,n);
+	getch();
+}
+
+
+void cargavecFib(Vector V1[N],int n)
+{
+    int anterior1, anterior2;
+    anterior1=0;
+    anterior2=1;
+    V1[0].vec[0]=anterior1;
+    V1[0].vec[1]=anterior2;
+
+    for(int i=0; i<n; i++)
+    {
+        for(int j=0; j<n; j++)
+        {
+            if((i!=0)&&(j>1))
+            {
+                V1[i].vec[j]= anterior1+anterior2;
+                anterior1=anterior2;
+                anterior2= V1[i].vec[j];
+            }
+
+        }
+    }
+}
