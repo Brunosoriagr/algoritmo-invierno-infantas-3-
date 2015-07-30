@@ -1,0 +1,94 @@
+
+#include "stdio.h"
+#include "conio.h"
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+struct registro0
+{int codigo;
+string nombre;
+string apellido;
+};
+void creararchivo();
+void adicionarAmigo();
+void mostrar();
+
+void main ()
+{int opcion;
+ do{
+	 cout<<"\n\n\t*****MENU*****";
+	 cout<<"\n1.- Crear Archivo";
+	 cout<<"\n2.- Adicionar Amigo";
+	 cout<<"\n3.- Listado de Amigos";
+	 cout<<"\n4.- Mostrar Promedio de Edad";
+	 cout<<"\n5.- Edad Mayor";
+	 cout<<"\n0.- Salir";
+	 cout<<"\nSeleccione una Opcion:";
+	 cin>>opcion;
+	 switch(opcion)
+		{case 1: creararchivo();
+				break;
+		 case 2:  adicionarAmigo();
+				break;
+		 case 3:  mostrar();
+				break;
+	   default:
+	   cout<<"error";
+	      break
+		 }
+	 getch();
+	 system("cls");
+   }while(opcion!=0);
+}
+
+void creararchivo()
+{
+FILE*ptr;
+ptr=fopen("amigo.dat","w");
+cout<<"El archivo fue creado exitosamente";
+fclose(ptr);
+}
+
+void adicionarAmigo()
+{FILE*ptr;
+registro0 amigo;
+cout<<"\nIngrese el nombre de su amigo: ";
+cin.ignore();
+getline(cin,amigo.nombre);
+
+cout<<"\nIngrese el apellido de su amigo: ";
+cin.ignore();
+getline(cin,amigo.apellido);
+
+cout<<"\nIngrese el codigo de su amigo: ";
+cin>>amigo.codigo;
+
+
+ptr=fopen("amigo.dat","a");
+fwrite(&amigo,sizeof(amigo),1,ptr);
+fclose(ptr);
+}
+
+void mostrar()
+{FILE*ptr;
+registro0 amigo;
+ptr=fopen("amigo.dat","r");
+if(ptr!=NULL)
+	{fread(&amigo,sizeof(amigo),1,ptr);
+	while(feof(ptr)==false)
+		{cout<<"\n"<<amigo.nombre;
+		cout<<" "<<amigo.apellido;
+		cout<<" "<<amigo.codigo;
+		fread(&amigo,sizeof(amigo),1,ptr);
+		}
+	fclose(ptr);
+
+	}
+
+else
+	cout<<"\nEl archivo no existe";
+
+
+}
