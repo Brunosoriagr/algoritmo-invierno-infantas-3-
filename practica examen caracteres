@@ -1,0 +1,192 @@
+#include "stdio.h"
+#include "conio.h"
+#include <iostream>
+#include <string>
+#include "math.h"
+#define fil 10
+
+using namespace std;
+
+struct lista0
+{string apellido;
+string nombre;
+
+
+};
+
+string leertexto();
+int buscarcaracter(string x);
+string invertirtexto(string x);
+int cargarmat(string x[fil][fil],string y);
+void mostarmat(string x[fil][fil],int n);
+int cargarlista(lista0 lista[]);
+void ordenarlista(lista0 lista[],int a);
+void mostrarlista(lista0 lista[],int a);
+
+void main()
+{int opcion,a;
+string c="a",d="b";
+string texto,tex[fil][fil];
+lista0 lista[fil]; 
+cout<<"1.-Contar el numero de caracteres\n";
+cout<<"2.-Contar las veces que aparece el caracter ingresado en un texto\n";
+cout<<"3.-Invertir el texto\n";
+cout<<"4.-Meter el texto en una matriz cuadrada\n";
+cout<<"5.-Ordenar los apellido y nombres por orden alfabetico y crear nueva lista\n";
+cout<<d.compare(c);
+cin>>opcion;
+switch(opcion)
+	{case 1:
+	texto=leertexto();
+	cout<<"La cantidad de letras que tiene el texto es: "<<texto.length();
+	 break;
+
+	case 2:
+	texto=leertexto();
+	a=buscarcaracter(texto);
+	cout<<"\nLa catidad de veces que se repite el caracter es: "<<a;
+	 break;
+	case 3:
+	texto=leertexto();
+	texto=invertirtexto(texto);
+	cout<<texto;
+	 break;
+	case 4:
+	texto=leertexto();
+	a=cargarmat(tex,texto);
+	cout<<"\n";
+	mostarmat(tex,a);
+	 break;
+
+	case 5:
+	a=cargarlista(lista);
+	ordenarlista(lista,a);
+	mostrarlista(lista,a);
+	}
+getch();
+}
+
+string leertexto()
+{string x;
+cout<<"ingresar texto: ";
+cin.ignore();
+getline(cin,x);
+cout<<"\n";
+return x;
+}
+
+int buscarcaracter(string x)
+{char b;
+int a=0;
+cout<<"ingresar el caracter que busca:";
+cin>>b;
+for(int i=0;i<x.length();i++)
+	{if(x.at(i)==b)
+		a++;
+
+	}
+
+return a;
+}
+string invertirtexto(string x)
+{string a;
+char aux;
+for(int i=0;i<x.length()/2;i++)
+	{aux=x.at(i);
+	x.at(i)=x.at(x.length()-1-i);
+	x.at(x.length()-1-i)=aux;
+	}
+return x;
+}
+
+int cargarmat(string x[fil][fil],string y)
+{int c=1,a=0;
+while(y.length()>=pow(c,2.0))
+	c++;
+cout<<c;
+for(int i=0;i<c;i++)
+	for(int k=0;k<c;k++)
+		{if(a<y.length())
+			x[i][k]=y.at(a);
+		else	
+			x[i][k]="-";
+		a++;
+		}
+return c;
+}
+
+void mostarmat(string x[fil][fil],int a)
+{for(int i=0;i<a;i++)
+	{for(int k=0;k<a;k++)
+		cout<<x[i][k]<<"\t";
+	
+	cout<<endl<<endl;
+	}	
+	
+
+}
+
+int cargarlista(lista0 lista[])
+{int n;
+cout<<"ingresar el numero de estudiantes: ";
+cin>>n;
+
+for(int i=0;i<n;i++)
+	{system("cls");
+	cout<<"ESTUDIANTE NRO "<<i+1;
+	cin.clear();
+	cout<<"\n\nIngresar nombre\n";
+	cin>>lista[i].nombre;
+	cin.clear();
+	cout<<"Ingresar apellido\n";
+	cin>>lista[i].apellido;
+	}
+return n;
+}
+
+void ordenarlista(lista0 lista[],int n)
+{string aux,a,b;
+int x;
+for(int i=0;i<n-1;i++)
+	{if(((lista[i].nombre).length())<((lista[i+1].nombre).length()))
+		x=(lista[i].nombre).length();
+	else
+		x=(lista[i+1].nombre).length();
+	for(int k=0;k<x;k++)		
+			{a=lista[i+1].nombre.at(k);
+			b=lista[i].nombre.at(k);
+			if(a.compare(b)==1 )
+				{aux=lista[i+1].nombre;
+				lista[i+1].nombre=lista[i].nombre;
+				lista[i].nombre=aux;
+				}
+	
+				if((lista[i].apellido).compare(lista[i+1].apellido)==1)
+				{aux=lista[i+1].apellido;
+				lista[i+1].apellido=lista[i].apellido;
+				lista[i].apellido=aux;
+				}
+
+			}
+	}
+}
+
+void mostrarlista(lista0 lista[],int a)
+{
+system("cls");
+for(int i=0;i<a;i++)
+	{cout<<lista[i].nombre<<" "<<lista[i].apellido;
+	cout<<endl<<endl;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
